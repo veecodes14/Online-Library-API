@@ -20,7 +20,6 @@ from biblio import views
 from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('biblio/', views.biblio_list),
     path('biblio/<int:id>', views.biblio_detail)
 ]
