@@ -6,7 +6,7 @@
     <hr class="my-4">
     {% if user.is_authenticated %}
         <p>Browse through our collection of books and manage your profile.</p>
-        <a class="btn btn-primary btn-lg" href="{% url 'book-list' %}" role="button">Browse Books</a>
+        <a class="btn btn-primary steel-btn btn-lg" href="{% url 'book-list' %}" role="button">Browse Books</a>
         <a class="btn btn-secondary btn-lg" href="{% url 'profile' %}" role="button">Go to Profile</a>
     {% else %}
         <p>Get started by creating an account or logging in.</p>
