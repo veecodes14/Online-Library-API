@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib import messages
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post
+from .models import Post, Borrow, Biblio
 
 
 def home (request):
@@ -56,4 +58,33 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 def about(request):
     return render(request, 'library/about.html', {'title': 'About'})
-# Create your views here.
+
+def book_list(request):
+    books = Biblio.objects.all()
+    return render(request, 'library/books.html', {'books': books})
+
+def book_detail(request, id):
+    book = get_object_or_404(Biblio, pk=id)  # Get the book by its ID
+    return render(request, 'library/book_detail.html', {'book': book})
+
+def borrowed_books(request):
+    borrowed = Borrow.objects.filter(user=request.user)
+    return render(request, 'library/borrowed_books.html', {'borrowed': borrowed})
+
+@login_required
+def borrow_book(request, book_id):
+    book = get_object_or_404(Biblio, pk=book_id)
+
+    if not book.available:
+        messages.error(request, 'This book is currently unavailable.')
+        return redirect('book-detail', id=book.id)
+
+    # Create a borrow record
+    Borrow.objects.create(user=request.user, book=book)
+
+    # Mark the book as unavailable
+    book.available = False
+    book.save()
+
+    messages.success(request, f'You have successfully borrowed "{book.title}".')
+    return redirect('book-detail', id=book.id)

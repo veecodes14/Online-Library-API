@@ -15,6 +15,18 @@ body {
   .bg-steel {
     background-color: #5f788a;
   }
+
+  .steel-btn {
+    background-color: #5f788a; 
+    border-color: #5f788a;
+    color: white;
+  }
+
+  .steel-btn:hover {
+    background-color: #5f788a;
+    border-color: #5f788a;
+    color: white;
+  }
   
   .site-header .navbar-nav .nav-link {
     color: #cbd5db;

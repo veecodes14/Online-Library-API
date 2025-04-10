@@ -29,17 +29,17 @@
             <div class="collapse navbar-collapse" id="navbarToggle">
               <div class="navbar-nav mr-auto">
                 <a class="nav-item nav-link" href="{% url 'library-home' %}">Home</a>
-                <a class="nav-item nav-link" href="{% url 'library-about' %}">About</a>
+                <a class="nav-item nav-link" href="{% url 'book-list' %}">Books</a>
               </div>
               <!-- Navbar Right Side -->
               <div class="navbar-nav">
                 {% if user.is_authenticated %}
-                  <!--<a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>-->
-                  <a class="nav-item nav-link" href="{% url 'biblio-list' %}">Books</a>
-                  <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
-                  <form action="{% url 'logout' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="nav-item nav-link">Logout</button>
+                <!--<a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>-->
+                <a class="nav-item nav-link" href="{% url 'borrowed-list' %}">My Books</a>
+                <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+                <form action="{% url 'logout' %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-outline-light ml-2">Logout</button>
                   </form>
                 
 

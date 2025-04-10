@@ -23,6 +23,7 @@ from .views import BiblioListAPIView
 urlpatterns = [
     path('biblio/', views.biblio_list),
     path('biblio/<int:id>', views.biblio_detail),
+    path('biblio/<int:id>/borrow/', views.borrow_book),
     path('biblio/', BiblioListAPIView.as_view(), name='biblio-list')
 ]
 

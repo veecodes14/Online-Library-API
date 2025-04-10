@@ -1,16 +1,32 @@
 {% extends "library/base.html" %}
 {% block content %}
-    {% for post in posts %}
-    <article class="media content-section">
-        <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
-        <div class="media-body">
-          <div class="article-metadata">
-            <a class="mr-2" href="#">{{ post.author }}</a>
-            <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
-          </div>
-          <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-          <p class="article-content">{{ post.content }}</p>
-        </div>
-    </article>
-    {% endfor %}
-{% endblock content %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to the Online Library System</h1>
+    <p class="lead">Your one-stop destination to explore, borrow, and manage books with ease.</p>
+    <hr class="my-4">
+    {% if user.is_authenticated %}
+        <p>Browse through our collection of books and manage your profile.</p>
+        <a class="btn btn-primary btn-lg" href="{% url 'book-list' %}" role="button">Browse Books</a>
+        <a class="btn btn-secondary btn-lg" href="{% url 'profile' %}" role="button">Go to Profile</a>
+    {% else %}
+        <p>Get started by creating an account or logging in.</p>
+        <a class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">Register</a>
+        <a class="btn btn-secondary btn-lg" href="{% url 'login' %}" role="button">Login</a>
+    {% endif %}
+</div>
+
+<div class="row text-center mt-5">
+    <div class="col-md-4">
+        <h2>Wide Collection</h2>
+        <p>Access a wide range of books across genres, authors, and topics.</p>
+    </div>
+    <div class="col-md-4">
+        <h2>User Friendly</h2>
+        <p>Simple and intuitive interface to help you find books faster.</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Track Your Reads</h2>
+        <p>Keep track of books you've borrowed and manage your reading list.</p>
+    </div>
+</div>
+{% endblock %}
