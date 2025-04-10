@@ -18,10 +18,12 @@ from django.contrib import admin
 from django.urls import path
 from biblio import views
 from rest_framework.urlpatterns import format_suffix_patterns
+from .views import BiblioListAPIView
 
 urlpatterns = [
     path('biblio/', views.biblio_list),
-    path('biblio/<int:id>', views.biblio_detail)
+    path('biblio/<int:id>', views.biblio_detail),
+    path('biblio/', BiblioListAPIView.as_view(), name='biblio-list')
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

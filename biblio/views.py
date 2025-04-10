@@ -3,7 +3,9 @@ from .models import Biblio
 from .serializers import BiblioSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status 
+from rest_framework import status
+from rest_framework import generics 
+from rest_framework import filters
 
 @api_view(['GET', 'POST'])
 def biblio_list(request, format=None):
@@ -41,6 +43,14 @@ def biblio_detail(request, id, format=None):
     elif request.method == 'DELETE':
         biblio.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class BiblioListAPIView(generics.ListAPIView):
+    queryset = Biblio.objects.all()
+    serializer_class = BiblioSerializer
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['title', 'author', 'genre', 'published_date']
+    ordering_fields = ['published_date']
+    ordering = ['published_date']
 
 
 

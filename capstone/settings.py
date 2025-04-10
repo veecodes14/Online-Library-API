@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'biblio.apps.BiblioConfig',
     'library.apps.LibraryConfig',
     'users.apps.UsersConfig',
+    'rest_framework',
     'crispy_forms',
     'crispy_bootstrap4',
     'django.contrib.admin',
@@ -134,3 +135,9 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'library-home'
 LOGIN_URL = 'login'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_FILTER_BACKENDS': ['rest_framework.filters.SearchFilter'],
+}

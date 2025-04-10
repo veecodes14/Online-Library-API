@@ -4,4 +4,4 @@ from .models import Biblio
 class BiblioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Biblio
-        fields = ['id', 'title', 'author', 'genre']
+        fields = ['id', 'title', 'author', 'genre', 'published_date', 'isbn']
