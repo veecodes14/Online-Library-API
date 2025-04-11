@@ -7,7 +7,8 @@ class Biblio(models.Model):
     published_date = models.DateField(null=True, blank=True)
     isbn = models.CharField(max_length=13, null=True, blank=True)
     available = models.BooleanField(default=True)
-    # image_url = models.CharField()
+    cover = models.ImageField(upload_to='book_covers/', blank=True, null=True)
+
     
 
     def __str__(self):

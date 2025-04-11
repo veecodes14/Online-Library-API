@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.utils import timezone
 from .models import Post, Borrow, Biblio
 
 
@@ -88,3 +89,17 @@ def borrow_book(request, book_id):
 
     messages.success(request, f'You have successfully borrowed "{book.title}".')
     return redirect('book-detail', id=book.id)
+
+@login_required
+def return_book(request, borrow_id):
+    borrow = get_object_or_404(Borrow, id=borrow_id, user=request.user)
+
+    if not borrow.return_date:  # Only allow return if not already returned
+        borrow.return_date = timezone.now().date()
+        borrow.save()
+
+        # Optional: Mark book as available again
+        borrow.book.available = True
+        borrow.book.save()
+
+    return redirect('borrowed-list')  # Update to your actual borrowed list view name
