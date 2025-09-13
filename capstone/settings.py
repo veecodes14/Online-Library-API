@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-w*cnz(*@26o)jmztp42go7=fk@z2m34at24$4910te)f=vi%62'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -121,11 +121,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+# Where collected static files will go (for production)
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# Additional places Django will look for static files
+STATICFILES_DIRS = [
+    BASE_DIR / "static",   # optional global static folder
+]
+
+# Fix media path
+MEDIA_ROOT = BASE_DIR / "static/media"
+MEDIA_URL = "/media/"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
